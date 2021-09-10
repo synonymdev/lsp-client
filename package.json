@@ -1,6 +1,6 @@
 {
-  "name": "lighthouse-client",
-  "version": "1.0.0",
+  "name": "@synonymdev/blocktank-client",
+  "version": "0.0.3",
   "description": "LSP client library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -10,11 +10,12 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "prepublish": "yarn run build && npm --no-git-tag-version version patch"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/synonymdev/lighthouse-client.git"
+    "url": "git+https://github.com/synonymdev/blocktank-client.git"
   },
   "keywords": [
     "Lightning",
@@ -25,9 +26,9 @@
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/synonymdev/lighthouse-client/issues"
+    "url": "https://github.com/synonymdev/blocktank-client/issues"
   },
-  "homepage": "https://github.com/synonymdev/lighthouse-client#readme",
+  "homepage": "https://github.com/synonymdev/blocktank-client#readme",
   "devDependencies": {
     "@babel/preset-env": "^7.15.0",
     "@babel/preset-typescript": "^7.15.0",

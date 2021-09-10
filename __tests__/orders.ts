@@ -1,11 +1,11 @@
-import cr from '../src/index';
+import bt from '../src/index';
 global.fetch = require('node-fetch');
 
-describe('chain reactor', () => {
+describe('block tank api', () => {
     beforeAll(async () => {});
 
     it('get CR info and get invoice for first product', async () => {
-        const info = await cr.getInfo();
+        const info = await bt.getInfo();
 
         expect(info.capacity.remote_balance).not.toBeNaN();
 
