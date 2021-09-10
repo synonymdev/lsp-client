@@ -1,1 +1,1 @@
-# Chain Reactor Client library
+# Blocktank Client library

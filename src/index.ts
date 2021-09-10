@@ -5,7 +5,7 @@ import {
     IGetOrderResponse
 } from './types';
 
-class ChainReactor {
+class Blocktank {
     private host = '';
 
     constructor() {
@@ -104,10 +104,10 @@ class ChainReactor {
         });
 
         res.total_amount = Number(res.total_amount);
-        res.stateMessage = ChainReactor.getStateMessage(res.state);
+        res.stateMessage = Blocktank.getStateMessage(res.state);
 
         return res;
     }
 }
 
-export default new ChainReactor();;
+export default new Blocktank();;
