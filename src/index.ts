@@ -110,4 +110,8 @@ class Blocktank {
     }
 }
 
-export default new Blocktank();;
+const bt = new Blocktank();
+
+export * from './types';
+
+export default bt;
