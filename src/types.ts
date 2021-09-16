@@ -88,4 +88,5 @@ export type IGetOrderResponse = {
     lnurl: ILnurl;
     remote_node_uri: string;
     remote_node_src: string;
+    zero_conf_satvbyte?: number;
 };
