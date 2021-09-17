@@ -59,7 +59,11 @@ class Blocktank {
 
         const fetchRes = await fetch(url, {
             method,
-            headers: { Accept: 'application/json', ...this.additionalHeaders },
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                ...this.additionalHeaders
+            },
             body: request ? JSON.stringify(request) : undefined
         });
 
