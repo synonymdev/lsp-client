@@ -90,3 +90,7 @@ export type IGetOrderResponse = {
     remote_node_src: string;
     zero_conf_satvbyte?: number;
 };
+
+export type IHeaders = {
+    [key: string]: string;
+}
