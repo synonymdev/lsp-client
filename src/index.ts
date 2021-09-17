@@ -2,11 +2,13 @@ import {
     IBuyChannelRequest,
     IBuyChannelResponse,
     IGetInfoResponse,
-    IGetOrderResponse
+    IGetOrderResponse,
+    IHeaders
 } from './types';
 
 class Blocktank {
     private host = '';
+    private additionalHeaders: IHeaders = {};
 
     constructor() {
         this.setNetwork('testnet');
@@ -27,6 +29,10 @@ class Blocktank {
                 break;
             }
         }
+    }
+
+    setHeaders(headers: IHeaders) {
+        this.additionalHeaders = headers;
     }
 
     static getStateMessage(code: number): string {
@@ -53,9 +59,7 @@ class Blocktank {
 
         const fetchRes = await fetch(url, {
             method,
-            headers: {
-                Accept: 'application/json'
-            },
+            headers: { Accept: 'application/json', ...this.additionalHeaders },
             body: request ? JSON.stringify(request) : undefined
         });
 
