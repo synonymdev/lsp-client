@@ -5,6 +5,7 @@ import {
     IGetOrderResponse,
     IHeaders
 } from './types';
+import fetch from 'cross-fetch';
 
 class Blocktank {
     private host = '';
