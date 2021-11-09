@@ -45,6 +45,7 @@ export type IBuyChannelResponse = {
     total_amount: number;
     btc_address: string;
     lnurl_channel: string;
+    order_expiry: number;
 };
 
 type IOnchainPayment = {
@@ -89,6 +90,8 @@ export type IGetOrderResponse = {
     remote_node_uri: string;
     remote_node_src: string;
     zero_conf_satvbyte?: number;
+    zero_conf_satvbyte_expiry?: number;
+    renewals: any[];
 };
 
 export type IHeaders = {
