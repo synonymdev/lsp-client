@@ -87,6 +87,7 @@ export type IGetOrderResponse = {
     amount_received: number;
     onchain_payments: IOnchainPayment[];
     lnurl: ILnurl;
+    lnurl_string: string;
     remote_node_uri: string;
     remote_node_src: string;
     zero_conf_satvbyte?: number;

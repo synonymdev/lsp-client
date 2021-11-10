@@ -49,7 +49,7 @@ class Blocktank {
             case 300:
                 return 'Channel opening';
             case 100:
-                return 'Order paid';
+                return 'Paid';
         }
 
         return `Unknown code: ${code}`;
