@@ -7,13 +7,7 @@ export type IService = {
     min_chan_expiry: number;
     max_chan_expiry: number;
     order_states: {
-        CLOSED: number;
-        CREATED: number;
-        GIVE_UP: number;
-        OPEN: number;
-        OPENING: number;
-        PAID: number;
-        URI_SET: number;
+        [key: string]: number;
     };
 };
 

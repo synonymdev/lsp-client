@@ -38,20 +38,24 @@ class Blocktank {
 
     static getStateMessage(code: number): string {
         switch (code) {
-            case 450:
-                return 'Channel closed';
             case 0:
                 return 'Awaiting payment';
-            case 400:
-                return 'Given up';
-            case 500:
-                return 'Channel open';
-            case 300:
-                return 'Channel opening';
             case 100:
                 return 'Paid';
+            case 200:
+                return 'Queued for opening';
+            case 300:
+                return 'Channel opening';
+            case 350:
+                return 'Channel closing';
+            case 400:
+                return 'Given up';
+            case 450:
+                return 'Channel closed';
+            case 500:
+                return 'Channel open';
         }
-
+        
         return `Unknown code: ${code}`;
     }
 
