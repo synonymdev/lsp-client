@@ -1,6 +1,8 @@
 import {
     IBuyChannelRequest,
     IBuyChannelResponse,
+    IFinalizeChannelRequest,
+    IFinalizeChannelResponse,
     IGetInfoResponse,
     IGetOrderResponse,
     IHeaders
@@ -55,7 +57,7 @@ class Blocktank {
             case 500:
                 return 'Channel open';
         }
-        
+
         return `Unknown code: ${code}`;
     }
 
@@ -99,6 +101,12 @@ class Blocktank {
 
         res.price = Number(res.price);
         res.total_amount = Number(res.total_amount);
+
+        return res;
+    }
+
+    async finalizeChannel(req: IFinalizeChannelRequest): Promise<IFinalizeChannelResponse> {
+        const res: IFinalizeChannelResponse = await this.call('channel/manual_finalise', 'POST', req);
 
         return res;
     }

@@ -27,5 +27,8 @@ describe('block tank api', () => {
         //
         // expect(order.state).toBe(0);
         // expect(typeof order.purchase_invoice).toBe('string');
+
+
+        // const f = await bt.finalizeChannel({order_id: '618d08ea89e7dfdde19d34e5', product_id: info.services[0].product_id, node_uri: '0376e750bb6fba22f0414adc179c82e4f00b9fa43cf26229dbd8e55148d2cc2b8a@35.233.47.252:52048'})
     });
 });

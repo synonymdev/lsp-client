@@ -42,6 +42,15 @@ export type IBuyChannelResponse = {
     order_expiry: number;
 };
 
+export type IFinalizeChannelRequest = {
+    order_id: string;
+    node_uri: string;
+};
+
+export type IFinalizeChannelResponse = {
+    order_id: string;
+};
+
 type IOnchainPayment = {
     height: number;
     hash: string;
