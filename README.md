@@ -23,7 +23,7 @@ const info = await bt.getInfo();
 const service = info.services[0];
 
 //Place order
-const buy = await cr.buyChannel({
+const buy = await bt.buyChannel({
     product_id: service.product_id,
     channel_expiry: 4,
     remote_balance: 0,
@@ -33,5 +33,5 @@ const buy = await cr.buyChannel({
 //Then pay for the order onchain using btc_address or via lightning with lnurl
 
 //Check order status and details
-const order = await cr.getOrder(buy.order_id);
+const order = await bt.getOrder(buy.order_id);
 ```
