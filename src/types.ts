@@ -60,7 +60,7 @@ type IOnchainPayment = {
     confirmed: true;
 };
 
-export type ILnurl = {
+export type ILnurlDecoded = {
     uri: string;
     callback: string;
     k1: string;
@@ -89,7 +89,7 @@ export type IGetOrderResponse = {
     purchase_invoice: string;
     amount_received: number;
     onchain_payments: IOnchainPayment[];
-    lnurl: ILnurl;
+    lnurl_decoded: ILnurlDecoded;
     lnurl_string: string;
     remote_node_uri: string;
     remote_node_src: string;
