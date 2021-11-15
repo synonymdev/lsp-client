@@ -20,7 +20,7 @@ class Blocktank {
     setNetwork(network: 'mainnet' | 'testnet' | 'regtest'): void {
         switch (network) {
             case 'mainnet': {
-                throw new Error('Network not yet supported');
+                this.host = 'https://blocktank.synonym.to/api/v1/'
                 break;
             }
             case 'testnet': {
