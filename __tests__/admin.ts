@@ -5,10 +5,26 @@ describe('blocktank admin api', () => {
   beforeAll(async () => {});
 
   it('auth and check orders', async () => {
-    const info = await btAdmin.getInfo();
+    const username = process.env.ADMIN_USERNAME;
+    const password = process.env.ADMIN_PASSWORD;
+    const token = process.env.ADMIN_TOKEN;
 
-    expect(info.capacity.remote_balance).not.toBeNaN();
+    expect(username).toBeDefined();
+    expect(password).toBeDefined();
+    expect(token).toBeDefined();
 
-    const service = info.services[0];
+    btAdmin.setNetwork('mainnet');
+
+    await btAdmin.login({
+      username,
+      password,
+      token
+    })
+
+    const orders = await btAdmin.getOrders();
+
+    expect(orders).not.toBeNaN();
+
+    console.log(orders);
   });
 });

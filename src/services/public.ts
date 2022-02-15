@@ -37,13 +37,13 @@ class PublicAPI extends Client{
   }
 
   async getInfo(): Promise<IGetInfoResponse> {
-    const res: IGetInfoResponse = await this.call('node/info', 'GET');
+    const res: IGetInfoResponse = await this.call('v1/node/info', 'GET');
 
     return res;
   }
 
   async buyChannel(req: IBuyChannelRequest): Promise<IBuyChannelResponse> {
-    const res: IBuyChannelResponse = await this.call('channel/buy', 'POST', req);
+    const res: IBuyChannelResponse = await this.call('v1/channel/buy', 'POST', req);
 
     res.price = Number(res.price);
     res.total_amount = Number(res.total_amount);
@@ -52,13 +52,13 @@ class PublicAPI extends Client{
   }
 
   async finalizeChannel(req: IFinalizeChannelRequest): Promise<IFinalizeChannelResponse> {
-    const res: IFinalizeChannelResponse = await this.call('channel/manual_finalise', 'POST', req);
+    const res: IFinalizeChannelResponse = await this.call('v1/channel/manual_finalise', 'POST', req);
 
     return res;
   }
 
   async getOrder(orderId: string): Promise<IGetOrderResponse> {
-    const res: IGetOrderResponse = await this.call(`channel/order?order_id=${orderId}`, 'GET');
+    const res: IGetOrderResponse = await this.call(`v1/channel/order?order_id=${orderId}`, 'GET');
 
     res.amount_received = res.amount_received ? Number(res.amount_received) : 0;
 

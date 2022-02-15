@@ -15,11 +15,11 @@ class Client {
   setNetwork(network: 'mainnet' | 'testnet' | 'regtest'): void {
     switch (network) {
       case 'mainnet': {
-        this.host = 'https://blocktank.synonym.to/api/v1/';
+        this.host = 'https://blocktank.synonym.to/api/'; //TODO change for admin
         break;
       }
       case 'testnet': {
-        this.host = 'http://35.233.47.252:443/chainreactor/v1/';
+        this.host = 'http://35.233.47.252:443/chainreactor/';
         break;
       }
       case 'regtest': {
@@ -30,19 +30,23 @@ class Client {
   }
 
   setHeaders(headers: IHeaders) {
-    this.additionalHeaders = headers;
+    this.additionalHeaders = { ...this.additionalHeaders, ...headers };
   }
 
   async call(path: string, method: 'GET' | 'POST', request?: any): Promise<any> {
     const url = `${this.host}${path}`;
 
+    const headers = {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...this.additionalHeaders,
+    };
+
+    console.log(headers);
+
     const fetchRes = await fetch(url, {
       method,
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        ...this.additionalHeaders,
-      },
+      headers,
       body: request ? JSON.stringify(request) : undefined,
     });
 

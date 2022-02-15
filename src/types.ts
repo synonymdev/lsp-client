@@ -1,4 +1,4 @@
-export type IService = {
+export interface IService {
   available: boolean;
   product_id: string;
   description: string;
@@ -11,7 +11,7 @@ export type IService = {
   };
 };
 
-export type IGetInfoResponse = {
+export interface IGetInfoResponse {
   capacity: {
     local_balance: number;
     remote_balance: number;
@@ -25,14 +25,14 @@ export type IGetInfoResponse = {
   };
 };
 
-export type IBuyChannelRequest = {
+export interface IBuyChannelRequest {
   product_id: string;
   remote_balance: number;
   local_balance: number;
   channel_expiry: number;
 };
 
-export type IBuyChannelResponse = {
+export interface IBuyChannelResponse {
   order_id: string;
   ln_invoice: string;
   price: number;
@@ -42,16 +42,16 @@ export type IBuyChannelResponse = {
   order_expiry: number;
 };
 
-export type IFinalizeChannelRequest = {
+export interface IFinalizeChannelRequest {
   order_id: string;
   node_uri: string;
 };
 
-export type IFinalizeChannelResponse = {
+export interface IFinalizeChannelResponse {
   order_id: string;
 };
 
-type IOnchainPayment = {
+interface IOnchainPayment {
   height: number;
   hash: string;
   to: string;
@@ -60,19 +60,19 @@ type IOnchainPayment = {
   confirmed: true;
 };
 
-export type ILnurlDecoded = {
+export interface ILnurlDecoded {
   uri: string;
   callback: string;
   k1: string;
   tag: string;
 };
 
-type IChannelOpenTx = {
+interface IChannelOpenTx {
   transaction_id: string;
   transaction_vout: number;
 };
 
-export type IGetOrderResponse = {
+export interface IGetOrderResponse {
   _id: string;
   local_balance: number;
   remote_balance: number;
@@ -96,8 +96,64 @@ export type IGetOrderResponse = {
   zero_conf_satvbyte?: number;
   zero_conf_satvbyte_expiry?: number;
   renewals: any[];
-};
+}
 
-export type IHeaders = {
+export interface IHeaders {
   [key: string]: string;
-};
+}
+
+//Admin types
+export interface IAdminLoginRequest {
+  username: string;
+  password: string;
+  token: string;
+}
+
+export interface IAdminLoginResponse {
+ key: string;
+}
+
+export interface IAdminOrder extends IGetOrderResponse {
+  product_id: string,
+  onchain_payment_swept: boolean,
+  ln_invoice: {
+    created_at: string,
+    description: string,
+    id: string,
+    mtokens: string,
+    request: string,
+    secret: string,
+    tokens: number,
+    node_pub_key: string
+  },
+  product_info: {
+    name: string,
+    description: string,
+    price_sats: number,
+    product_type: string,
+    product_meta: any,
+    state: number
+  },
+  order_result: [],
+  state: number,
+  zero_conf_satvbyte: number,
+  zero_conf_satvbyte_expiry: number,
+  amount_received: number //TODO convert,
+  remote_node?: {
+    err: boolean,
+    port: string,
+    ip: string,
+    addr: string,
+    public_key: string
+  },
+  lightning_channel_id?: string
+}
+
+export interface IAdminManualCreditRequest {
+  tx_id: string,
+  order_id: string
+}
+
+export interface IAdminManualCreditResponse {
+  //TODO
+}
