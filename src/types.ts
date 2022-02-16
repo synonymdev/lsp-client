@@ -113,7 +113,7 @@ export interface IAdminLoginResponse {
  key: string;
 }
 
-export interface IAdminOrder extends IGetOrderResponse {
+export interface IAdminOrderResponse extends IGetOrderResponse {
   product_id: string,
   onchain_payment_swept: boolean,
   ln_invoice: {
@@ -138,7 +138,7 @@ export interface IAdminOrder extends IGetOrderResponse {
   state: number,
   zero_conf_satvbyte: number,
   zero_conf_satvbyte_expiry: number,
-  amount_received: number //TODO convert,
+  amount_received: number,
   remote_node?: {
     err: boolean,
     port: string,

@@ -13,28 +13,7 @@ import Client from  './client'
  * API client for public end user facing endpoints
  */
 class PublicAPI extends Client{
-  private static getStateMessage(code: number): string {
-    switch (code) {
-      case 0:
-        return 'Awaiting payment';
-      case 100:
-        return 'Paid';
-      case 200:
-        return 'Queued for opening';
-      case 300:
-        return 'Channel opening';
-      case 350:
-        return 'Channel closing';
-      case 400:
-        return 'Given up';
-      case 450:
-        return 'Channel closed';
-      case 500:
-        return 'Channel open';
-    }
-
-    return `Unknown code: ${code}`;
-  }
+  
 
   async getInfo(): Promise<IGetInfoResponse> {
     const res: IGetInfoResponse = await this.call('v1/node/info', 'GET');
@@ -71,7 +50,7 @@ class PublicAPI extends Client{
     });
 
     res.total_amount = Number(res.total_amount);
-    res.stateMessage = PublicAPI.getStateMessage(res.state);
+    res.stateMessage = Client.getStateMessage(res.state);
 
     return res;
   }

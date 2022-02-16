@@ -12,6 +12,29 @@ class Client {
     this.setNetwork('testnet');
   }
 
+  static getStateMessage(code: number): string {
+    switch (code) {
+      case 0:
+        return 'Awaiting payment';
+      case 100:
+        return 'Paid';
+      case 200:
+        return 'Queued for opening';
+      case 300:
+        return 'Channel opening';
+      case 350:
+        return 'Channel closing';
+      case 400:
+        return 'Given up';
+      case 450:
+        return 'Channel closed';
+      case 500:
+        return 'Channel open';
+    }
+
+    return `Unknown code: ${code}`;
+  }
+
   setNetwork(network: 'mainnet' | 'testnet' | 'regtest'): void {
     switch (network) {
       case 'mainnet': {
@@ -19,7 +42,7 @@ class Client {
         break;
       }
       case 'testnet': {
-        this.host = 'http://35.233.47.252:443/chainreactor/';
+        this.host = 'http://35.233.47.252:443/blocktank/';
         break;
       }
       case 'regtest': {
@@ -41,8 +64,6 @@ class Client {
       'Content-Type': 'application/json',
       ...this.additionalHeaders,
     };
-
-    console.log(headers);
 
     const fetchRes = await fetch(url, {
       method,
