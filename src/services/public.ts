@@ -1,6 +1,7 @@
 import {
   IBuyChannelRequest,
   IBuyChannelResponse,
+  IExchangeRatesResponse,
   IFinalizeChannelRequest,
   IFinalizeChannelResponse,
   IGetInfoResponse,
@@ -13,8 +14,6 @@ import Client from  './client'
  * API client for public end user facing endpoints
  */
 class PublicAPI extends Client{
-  
-
   async getInfo(): Promise<IGetInfoResponse> {
     const res: IGetInfoResponse = await this.call('v1/node/info', 'GET');
 
@@ -53,6 +52,17 @@ class PublicAPI extends Client{
     res.stateMessage = Client.getStateMessage(res.state);
 
     return res;
+  }
+
+  async getRates(): Promise<IExchangeRatesResponse> {
+    const rates: IExchangeRatesResponse = {};
+
+    const res: string[][] = await this.call('v1/rate', 'GET');
+    res.forEach((a) => {
+      rates[a[0].replace('tBTC', '')] = Math.round(Number(a[1]) * 100) / 100;
+    });
+
+    return rates;
   }
 }
 

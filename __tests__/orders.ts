@@ -1,7 +1,7 @@
 import bt from '../src/index';
 global.fetch = require('node-fetch');
 
-describe('block tank api', () => {
+describe('blocktank public api', () => {
     beforeAll(async () => {});
 
     it('get CR info and get invoice for first product', async () => {
@@ -10,6 +10,9 @@ describe('block tank api', () => {
         expect(info.capacity.remote_balance).not.toBeNaN();
 
         const service = info.services[0];
+
+        const rates = await bt.getRates();
+        expect(rates.BTC).not.toBeNaN();
 
         // const buy = await cr.buyChannel({
         //     product_id: service.product_id,
