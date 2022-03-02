@@ -102,6 +102,10 @@ export interface IHeaders {
   [key: string]: string;
 }
 
+export type IExchangeRatesResponse = {
+  [key: string]: number;
+};
+
 //Admin types
 export interface IAdminLoginRequest {
   username: string;
