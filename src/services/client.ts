@@ -27,7 +27,7 @@ class Client {
       case 400:
         return 'Given up';
       case 410:
-        return 'Order balance';
+        return 'Order expired';
       case 450:
         return 'Channel closed';
       case 500:
