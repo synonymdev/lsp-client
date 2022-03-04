@@ -26,6 +26,8 @@ class Client {
         return 'Channel closing';
       case 400:
         return 'Given up';
+      case 410:
+        return 'Order balance';
       case 450:
         return 'Channel closed';
       case 500:
@@ -38,7 +40,7 @@ class Client {
   setNetwork(network: 'mainnet' | 'testnet' | 'regtest'): void {
     switch (network) {
       case 'mainnet': {
-        this.host = 'https://blocktank.synonym.to/api/'; //TODO change for admin
+        this.host = 'https://blocktank.synonym.to/api/';
         break;
       }
       case 'testnet': {
