@@ -12,6 +12,8 @@ import Client from  './client'
  * API client for admin endpoints
  */
 class AdminAPI extends Client {
+  private sessionKey: string | undefined;
+
   async login(req: IAdminLoginRequest): Promise<IAdminLoginResponse> {
     const res: IAdminLoginResponse = await this.call('admin/v1/login', 'POST', req);
 
@@ -23,7 +25,12 @@ class AdminAPI extends Client {
   }
 
   setSessionKey(key: string): void {
+    this.sessionKey = key;
     this.setHeaders({authorization: key})
+  }
+
+  getSessionKey(): string | undefined {
+    return this.sessionKey;
   }
 
   async getOrders(): Promise<IAdminOrderResponse[]> {
