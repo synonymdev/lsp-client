@@ -18,6 +18,8 @@ class Client {
         return 'Awaiting payment';
       case 100:
         return 'Paid';
+      case 150:
+        return 'Payment refunded';
       case 200:
         return 'Queued for opening';
       case 300:

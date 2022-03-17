@@ -153,11 +153,24 @@ export interface IAdminOrderResponse extends IGetOrderResponse {
   lightning_channel_id?: string
 }
 
+export interface IAdminActionResponse {
+  success: boolean
+}
+
 export interface IAdminManualCreditRequest {
   tx_id: string,
   order_id: string
 }
 
-export interface IAdminManualCreditResponse {
-  //TODO
+export interface IAdminRefundRequest {
+  order_id: string,
+  refund_tx: string
+}
+
+export interface IAdminRefundResponse {
+  success: boolean
+}
+
+export interface IAdminChannelCloseRequest {
+  order_id: string;
 }
