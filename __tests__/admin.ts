@@ -1,30 +1,26 @@
 import {btAdmin} from '../src/index';
-global.fetch = require('node-fetch');
+
+jest.setTimeout(30000);
 
 describe('blocktank admin api', () => {
   beforeAll(async () => {});
 
   it('auth and check orders', async () => {
-    const username = process.env.ADMIN_USERNAME;
-    const password = process.env.ADMIN_PASSWORD;
-    const token = process.env.ADMIN_TOKEN;
+    const sessionKey = process.env.SESSION_KEY || '';
 
-    expect(username).toBeDefined();
-    expect(password).toBeDefined();
-    expect(token).toBeDefined();
+    expect(sessionKey).toBeTruthy();
 
-    btAdmin.setNetwork('mainnet');
-
-    await btAdmin.login({
-      username,
-      password,
-      token
-    })
+    btAdmin.setNetwork('testnet');
+    btAdmin.setSessionKey(sessionKey);
 
     const orders = await btAdmin.getOrders();
 
-    expect(orders).not.toBeNaN();
+    expect(orders.length).toBeGreaterThan(0);
 
-    console.log(orders);
+    // const creditRes = await btAdmin.manualCredit({order_id: '62320b7c011c4515686df145', tx_id: '4be138bca1f7206c44424f400e6148edb6ff2b23f8783a6ba516f91b3309e771'});
+    // console.log(creditRes);
+
+    const refundRes = await btAdmin.refund({order_id: '62320b7c011c4515686df145', refund_tx: '4be138bca1f7206c44424f400e6148edb6ff2b23f8783a6ba516f91b3309e771'});
+    expect(refundRes.success).toBe(true);
   });
 });

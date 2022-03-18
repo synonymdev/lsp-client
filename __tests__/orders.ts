@@ -1,5 +1,4 @@
 import bt from '../src/index';
-global.fetch = require('node-fetch');
 
 describe('blocktank public api', () => {
     beforeAll(async () => {});

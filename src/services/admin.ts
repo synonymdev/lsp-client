@@ -2,9 +2,9 @@ import {
   IGetInfoResponse,
   IAdminOrderResponse,
   IAdminManualCreditRequest,
-  IAdminManualCreditResponse,
+  IAdminActionResponse,
   IAdminLoginRequest,
-  IAdminLoginResponse
+  IAdminLoginResponse, IAdminRefundRequest, IAdminRefundResponse, IAdminChannelCloseRequest,
 } from '../types';
 import Client from  './client'
 
@@ -12,6 +12,8 @@ import Client from  './client'
  * API client for admin endpoints
  */
 class AdminAPI extends Client {
+  private sessionKey: string | undefined;
+
   async login(req: IAdminLoginRequest): Promise<IAdminLoginResponse> {
     const res: IAdminLoginResponse = await this.call('admin/v1/login', 'POST', req);
 
@@ -23,7 +25,12 @@ class AdminAPI extends Client {
   }
 
   setSessionKey(key: string): void {
+    this.sessionKey = key;
     this.setHeaders({authorization: key})
+  }
+
+  getSessionKey(): string | undefined {
+    return this.sessionKey;
   }
 
   async getOrders(): Promise<IAdminOrderResponse[]> {
@@ -48,15 +55,21 @@ class AdminAPI extends Client {
     return res;
   }
 
-  async manualCredit(req: IAdminManualCreditRequest): Promise<IAdminManualCreditResponse> {
-    const res: IAdminManualCreditResponse = await this.call('v1/channel/manual_credit', 'POST', req);
-
+  async manualCredit(req: IAdminManualCreditRequest): Promise<IAdminActionResponse> {
+    const res: IAdminActionResponse = await this.call('admin/v1/channel/manual_credit', 'POST', req);
     return res;
   }
 
-  ///channel/manual_credit
-  ///channel/refund
-  ///channel/close
+  async refund(req: IAdminRefundRequest): Promise<IAdminRefundResponse> {
+    const res: IAdminRefundResponse = await this.call('admin/v1/channel/refund', 'POST', req);
+    return res;
+  }
+
+  async close(req: IAdminChannelCloseRequest): Promise<IAdminActionResponse> {
+    const res: IAdminActionResponse = await this.call('admin/v1/channel/close', 'POST', req);
+    return res;
+  }
+
   ///btc/sweep
 }
 
