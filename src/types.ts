@@ -45,6 +45,7 @@ export interface IBuyChannelResponse {
 export interface IFinalizeChannelRequest {
   order_id: string;
   node_uri: string;
+  private: boolean;
 };
 
 export interface IFinalizeChannelResponse {
