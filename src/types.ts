@@ -4,6 +4,7 @@ export interface IService {
   description: string;
   min_channel_size: number;
   max_channel_size: number;
+  max_node_usd_capacity: number;
   min_chan_expiry: number;
   max_chan_expiry: number;
   order_states: {
