@@ -8,7 +8,7 @@ Client side library for interacting with the Blocktank LSP server
 ```bash
 yarn add @synonymdev/blocktank-client
 #or
-npm i -s @synonymdev/blocktank-client
+npm i -S @synonymdev/blocktank-client
 ````
 
 ## Usage
