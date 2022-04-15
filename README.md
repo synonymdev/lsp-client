@@ -30,8 +30,11 @@ const buy = await bt.buyChannel({
     local_balance: 20000,
 });
 
-//Then pay for the order onchain using btc_address or via lightning with lnurl
+//Then pay for the order onchain using buy.btc_address or
+//via lightning with buy.ln_invoice (BOLT 11 encoded payment request), or buy.lnurl_channel (LNURL address)
 
 //Check order status and details
 const order = await bt.getOrder(buy.order_id);
 ```
+
+For more details, see the [Blocktank API docs](https://synonym.readme.io/reference/nodeinfo).
