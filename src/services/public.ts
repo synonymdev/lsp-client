@@ -17,6 +17,13 @@ class PublicAPI extends Client{
   async getInfo(): Promise<IGetInfoResponse> {
     const res: IGetInfoResponse = await this.call('v1/node/info', 'GET');
 
+    res.services.forEach((service, index) => {
+      res.services[index].max_chan_receiving = Number(service.max_chan_receiving) || 0;
+      res.services[index].max_chan_receiving_usd = Number(service.max_chan_receiving_usd) || 0;
+      res.services[index].max_chan_spending = Number(service.max_chan_spending) || 0;
+      res.services[index].max_chan_spending_usd = Number(service.max_chan_spending_usd) || 0;
+    });
+
     return res;
   }
 

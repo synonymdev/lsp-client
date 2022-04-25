@@ -7,6 +7,10 @@ export interface IService {
   max_node_usd_capacity: number;
   min_chan_expiry: number;
   max_chan_expiry: number;
+  max_chan_receiving: number;
+  max_chan_receiving_usd: number;
+  max_chan_spending: number;
+  max_chan_spending_usd: number;
   order_states: {
     [key: string]: number;
   };
