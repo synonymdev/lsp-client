@@ -15,7 +15,7 @@ https://synonym.readme.io/
 ```bash
 yarn add @synonymdev/blocktank-client
 #or
-npm i -s @synonymdev/blocktank-client
+npm i -S @synonymdev/blocktank-client
 ````
 
 ## Usage
