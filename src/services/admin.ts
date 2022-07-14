@@ -70,7 +70,7 @@ class AdminAPI extends Client {
     return res;
   }
 
-  ///btc/sweep
+  // /btc/sweep
 }
 
 export default AdminAPI;

@@ -25,7 +25,7 @@ import bt from '@synonymdev/blocktank-client';
 
 ```javascript
 // Choose network
-bt.setNetwork('testnet'); // Options are 'testnet' and 'mainnet'
+bt.setNetwork('mainnet'); // Options are 'mainnet' and 'regtest'
 
 // Get all node info and available services
 const info = await bt.getInfo();

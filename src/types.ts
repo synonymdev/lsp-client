@@ -112,7 +112,7 @@ export type IExchangeRatesResponse = {
   [key: string]: number;
 };
 
-//Admin types
+// Admin types
 export interface IAdminLoginRequest {
   username: string;
   password: string;
