@@ -9,7 +9,7 @@ class Client {
   private additionalHeaders: IHeaders = {};
 
   constructor() {
-    this.setNetwork('testnet');
+    this.setNetwork('regtest');
   }
 
   static getStateMessage(code: number): string {
@@ -46,11 +46,11 @@ class Client {
         break;
       }
       case 'testnet': {
-        this.host = 'http://35.233.47.252:443/blocktank/';
+        throw new Error('Network not yet supported');
         break;
       }
       case 'regtest': {
-        throw new Error('Network not yet supported');
+        this.host = 'http://35.233.47.252:443/blocktank/';
         break;
       }
     }

@@ -10,7 +10,7 @@ describe('blocktank admin api', () => {
 
     expect(sessionKey).toBeTruthy();
 
-    btAdmin.setNetwork('testnet');
+    btAdmin.setNetwork('regtest');
     btAdmin.setSessionKey(sessionKey);
 
     const orders = await btAdmin.getOrders();
