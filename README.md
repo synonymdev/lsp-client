@@ -1,14 +1,23 @@
-# Blocktank Client library
+<p align="center">
+  <a href="https://github.com/synonymdev/bitkit" title="Blocktank Client Library">
+    <img alt="bitkit" src="./blocktank_brand_mark.png" width="150"></img>
+  </a>
+</p>
 
-### Description
+<h3 align="center">Blocktank Client Libary</h3>
+
+
+## Description
 Client side wrapper library for interacting with the Blocktank LSP server. For REST API docs see [synonym.readme.io](https://synonym.readme.io/)
 
 [Blocktank](https://blocktank.synonym.to/) is an LSP that allows businesses, apps, or online platforms to integrate, automate, and monetize services from your Lightning node. This includes channel configuration, channel purchases, channel info and more.
 
 For widget and complete code samples see [blocktank-ui](https://github.com/synonymdev/blocktank-ui)
 
-### Rest API docs
+
+## Rest API docs
 https://synonym.readme.io/
+
 
 ## Getting started
 
