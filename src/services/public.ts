@@ -6,14 +6,13 @@ import {
   IFinalizeChannelResponse,
   IGetInfoResponse,
   IGetOrderResponse,
-  IHeaders,
 } from '../types';
-import Client from  './client'
+import Client from './client';
 
 /**
  * API client for public end user facing endpoints
  */
-class PublicAPI extends Client{
+class PublicAPI extends Client {
   async getInfo(): Promise<IGetInfoResponse> {
     const res: IGetInfoResponse = await this.call('v1/node/info', 'GET');
 

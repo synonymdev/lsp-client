@@ -1,12 +1,14 @@
 import {
-  IGetInfoResponse,
   IAdminOrderResponse,
   IAdminManualCreditRequest,
   IAdminActionResponse,
   IAdminLoginRequest,
-  IAdminLoginResponse, IAdminRefundRequest, IAdminRefundResponse, IAdminChannelCloseRequest,
+  IAdminLoginResponse,
+  IAdminRefundRequest,
+  IAdminRefundResponse,
+  IAdminChannelCloseRequest,
 } from '../types';
-import Client from  './client'
+import Client from './client';
 
 /**
  * API client for admin endpoints
@@ -26,7 +28,7 @@ class AdminAPI extends Client {
 
   setSessionKey(key: string): void {
     this.sessionKey = key;
-    this.setHeaders({authorization: key})
+    this.setHeaders({ authorization: key });
   }
 
   getSessionKey(): string | undefined {
@@ -36,7 +38,7 @@ class AdminAPI extends Client {
   async getOrders(): Promise<IAdminOrderResponse[]> {
     const res: IAdminOrderResponse[] = await this.call('admin/v1/channel/orders', 'GET');
 
-    res.forEach(o => {
+    res.forEach((o) => {
       o.amount_received = Number(o.amount_received);
       o.stateMessage = Client.getStateMessage(o.state);
       o.amount_received = o.amount_received ? Number(o.amount_received) : 0;
