@@ -78,12 +78,26 @@ interface IChannelOpenTx {
   transaction_vout: number;
 };
 
+interface IChannelCloseTx {
+  transaction_id: string;
+  ts: number;
+}
+
+interface IRemoteNode {
+  err: boolean;
+  port: string;
+  ip: string;
+  addr: string;
+  public_key: string;
+}
+
 export interface IGetOrderResponse {
   _id: string;
   local_balance: number;
   remote_balance: number;
   channel_expiry: number;
   channel_open_tx?: IChannelOpenTx;
+  channel_close_tx?: IChannelCloseTx;
   channel_expiry_ts: number;
   order_expiry: number;
   price: number;
@@ -97,8 +111,8 @@ export interface IGetOrderResponse {
   onchain_payments: IOnchainPayment[];
   lnurl_decoded: ILnurlDecoded;
   lnurl_string: string;
-  remote_node_uri: string;
-  remote_node_src: string;
+  remote_node?: IRemoteNode;
+  zero_conf: boolean;
   zero_conf_satvbyte?: number;
   zero_conf_satvbyte_expiry?: number;
   renewals: any[];
