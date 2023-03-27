@@ -50,7 +50,7 @@ class Client {
         break;
       }
       case 'regtest': {
-        this.host = 'http://35.233.47.252:443/blocktank/';
+        this.host = 'https://api.stag.blocktank.to/blocktank/';
         break;
       }
     }
