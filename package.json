@@ -1,6 +1,6 @@
 {
   "name": "@synonymdev/blocktank-client",
-  "version": "0.0.49",
+  "version": "0.0.50",
   "description": "LSP client library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
