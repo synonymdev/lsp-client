@@ -1,6 +1,6 @@
 {
   "name": "@synonymdev/blocktank-client",
-  "version": "0.0.50",
+  "version": "0.0.51",
   "description": "LSP client library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -26,7 +26,7 @@
     "LSP"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/synonymdev/blocktank-client/issues"
   },
