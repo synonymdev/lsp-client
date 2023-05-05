@@ -41,6 +41,23 @@ class PublicAPI extends Client {
     return res;
   }
 
+  async getOrders(orderIds: Array<string>): Promise<Array<IGetOrderResponse>> {
+    const res: Array<IGetOrderResponse> = await this.call(`v1/channel/order?order_id=${orderIds.join()}`, 'GET');
+    return res.map((res: IGetOrderResponse) => {
+      res.amount_received = res.amount_received ? Number(res.amount_received) : 0;
+      res.onchain_payments.forEach((payment, index) => {
+        res.onchain_payments[index] = {
+          ...payment,
+          amount_base: Number(payment.amount_base),
+          fee_base: Number(payment.fee_base),
+        };
+      });
+      res.total_amount = Number(res.total_amount);
+      res.stateMessage = Client.getStateMessage(res.state);
+      return res;
+    });
+  }
+
   async getOrder(orderId: string): Promise<IGetOrderResponse> {
     const res: IGetOrderResponse = await this.call(`v1/channel/order?order_id=${orderId}`, 'GET');
 
