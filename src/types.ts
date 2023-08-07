@@ -1,60 +1,160 @@
-export interface IService {
-  available: boolean;
-  product_id: string;
-  description: string;
-  min_channel_size: number;
-  max_channel_size: number;
-  max_node_usd_capacity: number;
-  min_chan_expiry: number;
-  max_chan_expiry: number;
-  max_chan_receiving: number;
-  max_chan_receiving_usd: number;
-  max_chan_spending: number;
-  max_chan_spending_usd: number;
-  order_states: {
-    [key: string]: number;
-  };
+export enum EOrderState {
+  created = 'created',
+  expired = 'expired',
+  open = 'open',
+  closed = 'closed',
+}
+export enum EChannelState {
+  opening = 'opening',
+  open = 'open',
+  closed = 'closed',
+}
+export enum EPaymentState {
+  created = 'created',
+  partiallyPaid = 'partiallyPaid',
+  paid = 'paid',
+  refunded = 'refunded',
+  refundAvailable = 'refundAvailable',
+}
+export enum EBolt11InvoiceState {
+  pending = 'pending',
+  holding = 'holding',
+  paid = 'paid',
+  canceled = 'canceled',
 }
 
 export interface IGetInfoResponse {
-  capacity: {
-    local_balance: number;
-    remote_balance: number;
+  version: number;
+  nodes: ILspNode[];
+  options: IInfoResOptions;
+}
+
+interface IInfoResOptions {
+  minChannelSizeSat: number;
+  maxChannelSizeSat: number;
+  minExpiryWeeks: number;
+  maxExpiryWeeks: number;
+  minPaymentConfirmations: number;
+  minPaymentConfirmationsClientBalance: number;
+  max0ConfClientBalanceSat: number;
+  maxClientBalanceLspBalanceRatio: number;
+}
+
+export interface ICreateOrderRequest {
+  /**
+   * Number of satoshi that the LSP will provide on their channel side initially.
+   */
+  lspBalanceSat: number;
+  /**
+   * Number of weeks the channel will be leased for before the LSP may close the channel.
+   */
+  channelExpiryWeeks: number;
+  /**
+   * Initial number of satoshi the client wants to provide on their channel side. The client pays this balance
+   * to the LSP. The LSP will push the balance to the LSP on channel creation. Defaults to 0.
+   */
+  clientBalanceSat: number;
+  /**
+   * Node id the client wants to receive the channel from. The id must come from the node list provided by `getInfo`.
+   * If not provided, a random node will be chosen.
+   */
+  lspNodeId?: string;
+  /**
+   * Coupon code to get discounts. Also used for affiliates.
+   */
+  couponCode?: string;
+}
+
+export interface IOrder {
+  id: string;
+  state: EOrderState;
+  feeSat: number;
+  lspBalanceSat: number;
+  clientBalanceSat: number;
+  zeroConf: boolean;
+  channelExpiryWeeks: number;
+  channelExpiresAt: string;
+  orderExpiresAt: string;
+  channel?: IChannel;
+  lspNode: ILspNode;
+  payment: IPayment;
+  couponCode: string;
+  discountPercent: number;
+  updatedAt: string;
+  createdAt: string;
+}
+
+interface ILspNode {
+  alias: string;
+  pubkey: string;
+  connectionStrings: string[];
+}
+
+interface IPayment {
+  state: EPaymentState;
+  paidSat: number;
+  bolt11Invoice: IBolt11Invoice;
+  onchain: IOnchain;
+}
+
+interface IBolt11Invoice {
+  request: string;
+  state: EBolt11InvoiceState;
+  expiresAt: string;
+  updatedAt: string;
+}
+
+interface IOnchain {
+  address: string;
+  confirmedSat: number;
+  transactions: ITransaction[];
+}
+
+export interface IOpenChannelRequest {
+  orderId: string;
+  connectionStringOrPubkey: string;
+  announceChannel: boolean;
+}
+
+export interface IChannel {
+  state: EChannelState;
+  lspNodePubkey: string;
+  clientNodePubkey: string;
+  announceChannel: boolean;
+  fundingTx: {
+    id: string;
+    vout: number;
   };
-  services: IService[];
-  node_info: {
-    alias: string;
-    active_channels_count: number;
-    uris: string[];
-    public_key: string;
-  };
+  shortChannelId: string;
 }
 
-export interface IBuyChannelRequest {
-  product_id: string;
-  remote_balance: number;
-  local_balance: number;
-  channel_expiry: number;
+export interface IOpenChannelResponse {
+  id: string;
+  state: EOrderState;
+  feeSat: number;
+  lspBalanceSat: number;
+  clientBalanceSat: number;
+  zeroConf: boolean;
+  channelExpiryWeeks: number;
+  channelExpiresAt: string;
+  orderExpiresAt: string;
+  channel: IChannel;
+  lspNode: ILspNode;
+  payment: IPayment;
+  couponCode: string;
+  discountPercent: number;
+  updatedAt: string;
+  createdAt: string;
 }
 
-export interface IBuyChannelResponse {
-  order_id: string;
-  ln_invoice: string;
-  price: number;
-  total_amount: number;
-  btc_address: string;
-  lnurl_channel: string;
-  order_expiry: number;
-}
-
-export interface IFinalizeChannelRequest {
-  order_id: string;
-  node_uri: string;
-  private: boolean;
-}
-
-export interface IFinalizeChannelResponse {
-  order_id: string;
+export interface ITransaction {
+  amountSat: number;
+  txId: string;
+  vout: number;
+  blockHeight: number;
+  blockConfirmationCount: number;
+  feeRateSatPerVbyte: number;
+  confirmed: boolean;
 }
 
 interface IOnchainPayment {
@@ -122,9 +222,7 @@ export interface IHeaders {
   [key: string]: string;
 }
 
-export type IExchangeRatesResponse = {
-  [key: string]: number;
-};
+export type TNetwork = 'mainnet' | 'regtest';
 
 // Admin types
 export interface IAdminLoginRequest {
