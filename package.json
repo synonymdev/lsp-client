@@ -1,6 +1,6 @@
 {
   "name": "@synonymdev/blocktank-client",
-  "version": "0.0.51",
+  "version": "1.0.0",
   "description": "LSP client library",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -44,6 +44,6 @@
   },
   "dependencies": {
     "cross-fetch": "^3.1.4",
-    "node-fetch": "3.1.1"
+    "node-fetch": "3.2.10"
   }
 }

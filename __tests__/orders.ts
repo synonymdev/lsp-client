@@ -1,36 +1,60 @@
-import bt from '../src/index';
+import bt, {EBolt11InvoiceState, EPaymentState, IOrder} from '../src/index';
 
-describe('blocktank public api', () => {
-    beforeAll(async () => {});
+const validateOrder = (order: IOrder) => {
+    expect(typeof order.id).toBe('string');
+    expect(order.state).toEqual('created');
+    expect(typeof order.feeSat).toBe('number');
+    expect(typeof order.lspBalanceSat).toBe('number');
+    expect(order.clientBalanceSat).toEqual(0);
+    expect(typeof order.zeroConf).toBe('boolean');
+    expect(order.channelExpiryWeeks).toEqual(6);
+    expect(typeof order.channelExpiresAt).toBe('string');
+    expect(typeof order.orderExpiresAt).toBe('string');
+    expect(order.channel).toEqual(null);
+    expect(typeof order.lspNode.alias).toBe('string');
+    expect(typeof order.lspNode.pubkey).toBe('string');
+    expect(Array.isArray(order.lspNode.connectionStrings)).toEqual(true);
+    expect(Object.values(EPaymentState)).toContain(order.payment.state);
+    expect(typeof order.payment.paidSat).toBe('number');
+    expect(Object.values(EBolt11InvoiceState)).toContain(order.payment.bolt11Invoice.state);
+    expect(typeof order.payment.bolt11Invoice.request).toBe('string');
+    expect(typeof order.payment.bolt11Invoice.expiresAt).toBe('string');
+    expect(typeof order.payment.bolt11Invoice.updatedAt).toBe('string');
+    expect(typeof order.couponCode).toBe('string');
+    expect(typeof order.discountPercent).toBe('number');
+    expect(typeof order.updatedAt).toBe('string');
+    expect(typeof order.createdAt).toBe('string');
+}
 
-    it('get CR info and get invoice for first product', async () => {
+describe('Blocktank public api', () => {
+    it('Get Blocktank version info', async () => {
         const info = await bt.getInfo();
+        expect(info.version).toBe(2);
+    });
 
-        expect(info.capacity.remote_balance).not.toBeNaN();
+    it('Create a buy channel request', async () => {
+        const order = await bt.createOrder({
+            lspBalanceSat: 50000,
+            channelExpiryWeeks: 6,
+            clientBalanceSat: 0,
+        });
+        expect(order.lspBalanceSat).toEqual(50000);
+        validateOrder(order);
+    });
 
-        const service = info.services[0];
+    it('Get order info', async () => {
+        const id = '49eff859-e4bf-4433-a4d1-d84ff322988a';
+        const order = await bt.getOrder(id);
+        expect(order.id).toBe(id);
+        validateOrder(order);
+    });
 
-        const rates = await bt.getRates();
-        expect(rates.BTC).not.toBeNaN();
-
-        // const buy = await cr.buyChannel({
-        //     product_id: service.product_id,
-        //     channel_expiry: 4,
-        //     remote_balance: 0,
-        //     local_balance: 20000,
-        // });
-        //
-        // expect(typeof buy.ln_invoice).toBe('string');
-        // expect(typeof buy.total_amount).toBe('number');
-        // expect(typeof buy.btc_address).toBe('string');
-        //
-        // //Check order
-        // const order = await cr.getOrder(buy.order_id);
-        //
-        // expect(order.state).toBe(0);
-        // expect(typeof order.purchase_invoice).toBe('string');
-
-
-        // const f = await bt.finalizeChannel({order_id: '618d08ea89e7dfdde19d34e5', product_id: info.services[0].product_id, node_uri: '0376e750bb6fba22f0414adc179c82e4f00b9fa43cf26229dbd8e55148d2cc2b8a@35.233.47.252:52048'})
+    it('Get info from multiple orders', async () => {
+        const ids = ['49eff859-e4bf-4433-a4d1-d84ff322988a', 'f6c62c6e-bb24-4d55-8239-efb847128ccb'];
+        const orders = await bt.getOrders(ids);
+        orders.forEach((order, i) => {
+            expect(order.id).toBe(ids[i]);
+            validateOrder(order);
+        });
     });
 });

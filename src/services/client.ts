@@ -1,4 +1,4 @@
-import { IHeaders } from '../types';
+import { IHeaders, TNetwork } from '../types';
 import fetch from 'cross-fetch';
 
 /**
@@ -39,19 +39,18 @@ class Client {
     return `Unknown code: ${code}`;
   }
 
-  setNetwork(network: 'mainnet' | 'testnet' | 'regtest'): void {
+  setNetwork(network: TNetwork): void {
     switch (network) {
       case 'mainnet': {
         this.host = 'https://blocktank.synonym.to/api/';
         break;
       }
-      case 'testnet': {
-        throw new Error('Network not yet supported');
+      case 'regtest': {
+        this.host = 'https://api.stag.blocktank.to/blocktank/api/';
         break;
       }
-      case 'regtest': {
-        this.host = 'https://api.stag.blocktank.to/blocktank/';
-        break;
+      default: {
+        throw new Error('Network not yet supported');
       }
     }
   }
@@ -75,7 +74,7 @@ class Client {
       body: request ? JSON.stringify(request) : undefined,
     });
 
-    if (fetchRes.status !== 200) {
+    if (!fetchRes.ok) {
       throw new Error(`HTTP error ${fetchRes.status}`);
     }
     const body = await fetchRes.json();
