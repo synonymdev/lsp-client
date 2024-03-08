@@ -1,10 +1,9 @@
 <p align="center">
-  <a href="https://github.com/synonymdev/bitkit" title="Blocktank Client Library">
-    <img alt="bitkit" src="./blocktank_brand_mark.png" width="150"></img>
+  <a href="https://github.com/synonymdev/bitkit" title="LSP Client Library">
   </a>
 </p>
 
-<h3 align="center">Blocktank Client Libary</h3>
+<h3 align="center">LSP Client Libary</h3>
 
 
 ## Description
@@ -12,19 +11,19 @@ Client side wrapper library for interacting with the Blocktank LSP server. For R
 
 [Blocktank](https://blocktank.synonym.to/) is an LSP that allows businesses, apps, or online platforms to integrate, automate, and monetize services from your Lightning node. This includes channel configuration, channel purchases, channel info and more.
 
-For widget and complete code samples see [blocktank-ui](https://github.com/synonymdev/blocktank-ui)
+For widget and complete code samples see [lsp-ui](https://github.com/synonymdev/lsp-ui)
 
 ## Getting started
 
 ```bash
-yarn add @synonymdev/blocktank-client
+yarn add @synonymdev/lsp-client
 #or
-npm i -S @synonymdev/blocktank-client
+npm i -S @synonymdev/lsp-client
 ````
 
 ## Usage
 ```javascript
-import bt from '@synonymdev/blocktank-client';
+import bt from '@synonymdev/lsp-client';
 ```
 
 ```javascript
